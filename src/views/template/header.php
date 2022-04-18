@@ -30,7 +30,7 @@
 
             <div class="dropdown">
                 <div class="dropdown-button">
-                    <span class="ml-3" >Usuário Mock</span>
+                    <span class="ml-3" >Usuário: <?=$_SESSION['user']->name ?></span>
                     <i class="icofont-simple-down ml-2 mx-2"></i>
                 </div>
                 <div class="dropdown-content">
