@@ -1,5 +1,6 @@
 <?php
 error_reporting(E_ERROR | E_PARSE);
+session_start();
 loadModel('Login');
 $exception = null;
 if(count($_POST) > 0){
@@ -7,7 +8,7 @@ if(count($_POST) > 0){
     
     try{
         $user = $login->checkLogin();
-        echo "Usuário {$user->name} logado :)";
+        $_SESSION['user'] = $user;
         header("Location: day_records.php");
 
     }catch(AppException $e){

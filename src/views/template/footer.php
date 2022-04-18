@@ -5,3 +5,5 @@
     <span>por Cod<span class="text-danger">3</span>r</span>
 </footer>
 </html>
+
+<script src="/assets/js/app.js"></script>

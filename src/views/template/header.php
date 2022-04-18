@@ -12,7 +12,7 @@
 
     </head>
 
-    <body>
+    <body class="hide-sidebar">
         <header class="header">
             <div class="logo">
             <i class="icofont-travelling mr-2"></i>
@@ -30,8 +30,8 @@
 
             <div class="dropdown">
                 <div class="dropdown-button">
-                    <span>Usuário Mock</span>
-                    <i class="icofont-simple-down ml-2"></i>
+                    <span class="ml-3" >Usuário: <?=$_SESSION['user']->name ?></span>
+                    <i class="icofont-simple-down ml-2 mx-2"></i>
                 </div>
                 <div class="dropdown-content">
                     <ul class="nav-list">
