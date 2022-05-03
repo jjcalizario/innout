@@ -1,11 +1,10 @@
 <?php
-
+error_reporting(E_ERROR | E_PARSE);
 session_start();
 requireValidSession();
 
-
-$date = (new DateTime())->getTimestamp();
-setlocale(LC_ALL, 'pt_BR.utf-8');
-$today = date('d M y', strtotime($date));
+date_default_timezone_set('America/Sao_Paulo');
+$date = new DateTime();
+$today = $date->format('d/ M/ Y');
 
 loadTemplateView('day_records',['today' =>$today]);

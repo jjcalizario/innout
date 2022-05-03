@@ -4,7 +4,8 @@
                 'Registrar Ponto',
                 'Mantenha seu ponto consistente!',
                 'icofont-check-alt'
-        );              
+        );  
+        include(TEMPLATE_PATH . "/messages.php");            
     ?>
 
     <div class="card">
