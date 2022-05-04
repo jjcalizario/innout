@@ -70,6 +70,18 @@ class Model{
         
     }
 
+    public function save(){
+        $sql = "INSERT INTO" . static::$tableName . " (" 
+        .implode(",",static::$colums) . ") VALUES (";
+        foreach (static::$colums as $col){
+            $sql .= static::getFormatedValue($this->col) . ",";
+        }
+        $sql[strlen($sql)-1] = ")";
+        $id = Database::executeSql($sql);
+        $this->id = $id;
+        
+
+    }
     private static function getFilters($filters){
         $sql = '';
         if(count($filters)>0){                
