@@ -2,7 +2,7 @@
 
 class Model{
     protected static $tableName ="";
-    protected static $colums = [];
+    protected static $columns = [];
     protected $values =[];
 
     function __construct($arr)
@@ -22,7 +22,7 @@ class Model{
 
     public function __get($key){
 
-        return $this->values[$key];
+        return  isset($this->values[$key]) ? $this->values[$key] : null;
     }
 
     public function __set ($key, $value){
@@ -71,12 +71,12 @@ class Model{
     }
 
     public function save(){
-        $sql = "INSERT INTO" . static::$tableName . " (" 
-        .implode(",",static::$colums) . ") VALUES (";
-        foreach (static::$colums as $col){
-            $sql .= static::getFormatedValue($this->col) . ",";
+        $sql = "INSERT INTO " . static::$tableName . " (" 
+        .implode(",", static::$columns) . ") VALUES (";
+        foreach (static::$columns as $col){
+            $sql .= static::getFormatedValue($this->$col) . ",";
         }
-        $sql[strlen($sql)-1] = ")";
+        $sql[strlen($sql)-1] = ')';
         $id = Database::executeSql($sql);
         $this->id = $id;
         
@@ -86,8 +86,8 @@ class Model{
         $sql = '';
         if(count($filters)>0){                
             $sql .= " WHERE 1=1";
-            foreach($filters as $column=>$value){
-                $sql.= " AND ${column} = " .static::getFormatedValue($value);
+            foreach($filters as $columns=>$value){
+                $sql.= " AND ${columns} = " .static::getFormatedValue($value);
             }
         }
 

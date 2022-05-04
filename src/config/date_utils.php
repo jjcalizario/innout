@@ -5,8 +5,7 @@ function getDateasDateTime($date){
 }
 
 function isWeekend ($date){
-    $inputDate = getDateasDateTime($date);
-
+    $inputDate = getDateAsDateTime($date);
     return $inputDate->format('N') >= 6;
 
 }
@@ -19,9 +18,10 @@ function isBefore($date1, $date2){
 }
 
 function getNextDay($date){
-    $inputDate = getDateasDateTime(($date));
-    $inputDate->modify('+1 day');
-
+    $inputDate= getDateasDateTime($date);
+        
+    return $inputDate->modify('+1 day');
+    
 }
 
 
