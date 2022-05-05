@@ -10,9 +10,14 @@ $records = WorkingHours::loadFromUserAndDate($user->id, date('Y-m-d'));
 try{
 $date = new DateTime();
 $currentTime = $date->format('H:i:s');
-echo ($currentTime);
+
+if($_POST['forcedTime']){
+    $currentTime=$_POST['forcedTime'];
+
+}
+
 $records->innout($currentTime);
-addSuccessMsg("Ponto Adicionado com sucesso!");
+addSuccessMsg("Ponto adicionado com sucesso!");
 }catch(AppException $e){
     addErrorMsg($e->getMessage());
 }
