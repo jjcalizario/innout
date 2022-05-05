@@ -1,4 +1,5 @@
 <?php
+
 loadModel('WorkingHours');
 
 Database::executeSql('DELETE FROM working_hours');
@@ -10,7 +11,7 @@ function getDayTemplateByOdds($regularRate, $extraRate, $lazyRate){
         "time2" => "12:00:00",
         "time3" => "13:00:00",
         "time4" => "17:00:00",
-        "worker_time" => DAILY_TIME
+        "worked_time" => strval(DAILY_TIME)
     ];
     
     $extraHourDayTemplate = [
@@ -18,14 +19,14 @@ function getDayTemplateByOdds($regularRate, $extraRate, $lazyRate){
         "time2" => "12:00:00",
         "time3" => "13:00:00",
         "time4" => "18:00:00",
-        "worker_time" => DAILY_TIME + 3600
+        "worked_time" => strval (DAILY_TIME + 3600)
     ];
     $lazyDayTemplate = [
         "time1" => "08:30:00",
         "time2" => "12:00:00",
         "time3" => "13:00:00",
         "time4" => "18:00:00",
-        "worker_time" => DAILY_TIME - 1800
+        "worked_time" => strval (DAILY_TIME - 1800)
     ];
 
     $value = rand(0, 100);
@@ -52,7 +53,7 @@ function populateWorkingHours($userId, $initialDate, $regularRate, $extraRate, $
             $template = getDayTemplateByOdds($regularRate, $extraRate, $lazyRate);
             $columns = array_merge($columns, $template);
             $workingHours = new WorkingHours($columns);
-            $workingHours->save();
+            $workingHours->insert();
             
             
         }
@@ -67,8 +68,8 @@ function populateWorkingHours($userId, $initialDate, $regularRate, $extraRate, $
 
 $lastMonth = strtotime('first day of last month');
 
-populateWorkingHours('1', date('Y-m-1'), 70, 20, 10);
+populateWorkingHours('1', date('Y-m-1'), 80, 10, 10);
 populateWorkingHours('3', date('Y-m-d', $lastMonth), 60, 30, 10);
-populateWorkingHours('4', date('Y-m-d', $lastMonth), 60, 20, 20);
-populateWorkingHours('2', date('Y-m-d', $lastMonth), 60, 10, 30);
+populateWorkingHours('4', date('Y-m-d', $lastMonth), 50, 30, 20);
+populateWorkingHours('2', date('Y-m-d', $lastMonth), 40, 20, 40);
 echo ('Tudo certo');
