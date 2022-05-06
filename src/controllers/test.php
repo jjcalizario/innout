@@ -1,10 +1,15 @@
 <?php
 //CONTROLLER TEMPORÁRIO
+session_start();
+requireValidSession();
 loadModel('WorkingHours');
 
-$wh = WorkingHours::loadFromUserAndDate(1, date ('Y-m-d'));
+$user = $_SESSION['user'];
+$wh = WorkingHours::loadFromUserAndDate($user->id, date ('Y-m-d'));
 
-$workedInterval= $wh->getWorkedInterval()->format('%H:%I:%S');
-print_r($workedInterval);
+$workedIntervalString = $wh->getWorkedInterval()->format('%H:%I:%S');
+print_r($workedIntervalString);
+
 echo ('<br>');
+print_r($wh->getExitTime());
 
