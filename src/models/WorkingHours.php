@@ -1,5 +1,6 @@
 <?php
 
+use LDAP\Result;
 
 class WorkingHours extends Model
 {
@@ -56,12 +57,16 @@ class WorkingHours extends Model
         }
 
         $this->$timeColumn = $time;
+        $this->worked_time = strval(getSecondsFromDateInterval($this->getWorkedInterval()));
+        
         if ($this->id) {
             $this->update();
         } else {
             $this->insert();
         }
     }
+
+   
 
     function getWorkedInterval()
     {
@@ -113,6 +118,56 @@ class WorkingHours extends Model
         $this->time4 ? array_push($times, getDateFromString($this->time4)) : array_push($times, null);
 
         return $times;
+    }
+
+    
+
+    public static function getAbsentUsers(){
+        $today = new DateTime();
+        $result = Database::getResultFromQuery("
+            SELECT name FROM users
+            WHERE end_date is NULL
+            AND id NOT IN (
+                SELECT user_id FROM working_hours
+                WHERE work_date = '{$today->format('Y-m-d')}'
+                AND time1 IS NOT NULL)");
+
+        $absentUsers = [];
+        if($result->num_rows >0){
+            while($row = $result->fetch_assoc()){
+                array_push($absentUsers, $row['name']);
+            }
+    }
+    return $absentUsers;
+
+}
+
+    public static function getWorkedTime($YearAndMonth){
+        $startDate = (new DateTime("{$YearAndMonth}-1"))->format('Y-m-d');
+        $endDate = (getLastDayofMonth("{$YearAndMonth}-1"))->format('Y-m-d');
+
+        $result = static::getResultSetFromSelect(
+            ['raw' => "work_date BETWEEN '{$startDate}' AND '{$endDate}'" 
+        ], "sum(worked_time) as sum");
+        return $result->fetch_assoc()['sum'];
+
+    }
+    public static function getMonthlyReport($userId, $date){
+        $registries = [];
+        $startDate = getFirstDayofMonth($date)->format('Y-m-d');
+        $endDate = getLastDayofMonth($date)->format('Y-m-d');
+
+        $result = static::getResultSetFromSelect([
+            'user_id' => $userId,
+            'raw' => "work_date between '{$startDate}' AND '{$endDate}'"
+        ]);
+
+        if($result){
+            while($row = $result->fetch_assoc()){
+                $registries[$row['work_date']]= new WorkingHours($row);
+            }
+        }
+        return $registries;
     }
 
 }

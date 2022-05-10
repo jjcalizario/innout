@@ -8,13 +8,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href=".php">
+                <a href="monthly-report.php">
                     <i class="icofont-ui-calendar mr-2"></i>
                     Relatório Mensal
                 </a>
             </li>
             <li class="nav-item">
-                <a href=".php">
+                <a href="manager_report.php">
                     <i class="icofont-chart-histogram mr-2"></i>
                     Relatório Gerencial
                 </a>
