@@ -7,12 +7,14 @@
                     Registrar ponto
                 </a>
             </li>
+           
             <li class="nav-item">
                 <a href="monthly-report.php">
                     <i class="icofont-ui-calendar mr-2"></i>
                     Relatório Mensal
                 </a>
             </li>
+            <?php if ($user->is_admin): ?>
             <li class="nav-item">
                 <a href="manager_report.php">
                     <i class="icofont-chart-histogram mr-2"></i>
@@ -20,12 +22,12 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href=".php">
+                <a href="users.php">
                     <i class="icofont-user mr-2"></i>
                     Usuários
                 </a>
             </li>
-
+            <?php endif ?>
         </ul>
 
 
