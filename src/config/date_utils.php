@@ -1,5 +1,7 @@
 <?php
 
+use JetBrains\PhpStorm\Language;
+
 function getDateasDateTime($date){
     return is_string($date) ? new DateTime($date) : $date;
 }
@@ -71,4 +73,9 @@ function getTimeStringFromSeconds($seconds){
     $s= $seconds - ($h*3600) - ($m*60);
 
     return sprintf('%02d:%02d:%02d', $h, $m, $s);
+}
+
+function formatDateWithLocale($date, $pattern){
+    $time = new DateTime($date);
+    return $time->format($pattern);
 }

@@ -5,9 +5,8 @@ requireValidSession();
 
 
 
-date_default_timezone_set('America/Sao_Paulo');
-$date = new DateTime();
-$today = $date->format('d/ M/ Y');
+$date = (new Datetime())->getTimestamp();
+$today = strftime('%d de %B de %Y', $date);
 
 
 

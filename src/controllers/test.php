@@ -1,7 +1,6 @@
 <?php
 //CONTROLLER TEMPORÁRIO
-session_start();
-requireValidSession();
+echo User::getCount(['raw' => 'id>=2']);
 
 
 
