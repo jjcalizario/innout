@@ -142,9 +142,9 @@ class WorkingHours extends Model
 
 }
 
-    public static function getWorkedTime($YearAndMonth){
+    public static function getWorkedTimeInMonth($YearAndMonth){
         $startDate = (new DateTime("{$YearAndMonth}-1"))->format('Y-m-d');
-        $endDate = (getLastDayofMonth("{$YearAndMonth}-1"))->format('Y-m-d');
+        $endDate = getLastDayofMonth("{$YearAndMonth}-1")->format('Y-m-d');
 
         $result = static::getResultSetFromSelect(
             ['raw' => "work_date BETWEEN '{$startDate}' AND '{$endDate}'" 

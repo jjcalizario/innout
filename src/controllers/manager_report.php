@@ -2,7 +2,17 @@
 
 error_reporting(E_ERROR | E_PARSE);
 session_start();
-requireValidSession();
+requireValidSession(true);
 
+$activeUsersCount = User::getActiveCount();
+$absentUsers = WorkingHours::getAbsentUsers();
+$yearAndMonth = (new DateTime())->format('Y-m');
 
-loadTemplateView('manager_report', []);
+$seconds = WorkingHours::getWorkedTimeInMonth($yearAndMonth);
+$hoursInMonth = explode(':',getTimeStringFromSeconds($seconds))[0];
+
+loadTemplateView('manager_report', [
+    'activeUsersCount' => $activeUsersCount,
+    'absentUsers' => $absentUsers,
+    'hoursInMonth' => $hoursInMonth,
+]);
